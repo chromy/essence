@@ -10,6 +10,6 @@ setup(
     url='https://github.com/chromy/essence.git',
     license='LICENSE.txt',
     description='',
-    long_description=open('README.txt').read(),
+    long_description=open('README.rst').read(),
     install_requires=[],
 )
