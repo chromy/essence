@@ -1,6 +1,6 @@
-===
+=======
 essence
-===
+=======
 
 .. image:: https://travis-ci.org/chromy/essence.svg
     :target: https://travis-ci.org/chromy/essence
