@@ -37,7 +37,8 @@ class World(object):
         component_type = type(component)
         relation = self._get_relation(component_type)
         if entity in relation:
-            msg = "Component {} can't be added to entity {} since it already has a component of type {}.".format(component, entity, component_type)
+            # PYTHON2.6: Numbers required in format string.
+            msg = "Component {0} can't be added to entity {1} since it already has a component of type {2}.".format(component, entity, component_type)
             raise DuplicateComponentError(msg)
         relation[entity] = component
 
