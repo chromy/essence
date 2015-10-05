@@ -1,8 +1,11 @@
 ===
-ECS
+essence
 ===
 
-ECS is an entity component system framework for Python.
+.. image:: https://travis-ci.org/chromy/essence.svg
+    :target: https://travis-ci.org/chromy/essence
+
+Essence is an entity component system framework for Python.
 
 An example::
 
