@@ -6,6 +6,8 @@ class World(object):
     def __init__(self):
         self._highest_id_seen = 0
         self._database = {}
+        self._entities = []
+        self._systems = []
 
     def _get_relation(self, component_type):
         try:
@@ -14,7 +16,7 @@ class World(object):
             self._database[component_type] = {}
             return self._database[component_type]
 
-    def new_entity(self):
+    def create_entity(self):
         """Create a new entity.
 
         The entity will have a higher UID than any previously associated
@@ -23,7 +25,18 @@ class World(object):
         :return: the new entity
         :rtype: :class:`essence.Entity`"""
         self._highest_id_seen += 1
-        return Entity(self._highest_id_seen, self)
+        entity = Entity(self._highest_id_seen, self)
+        self._entities.append(entity)
+        return entity
+
+    def destroy_entitiy(self, entity):
+        """Remove the entity and all connected components from the world.
+
+        Long-hand for :func:`essence.Entity.destroy`.
+        """
+        for relation in self._database.values():
+            relation.pop(entity, None)
+        self._entities.remove(entity)
 
     def add_component(self, entity, component):
         """Add component to entity.
@@ -82,8 +95,22 @@ class World(object):
         :param entity: entity
         :type entity: :class:`essence.Entity`
         :param component_type: Type of component
-        :type component_type: The :class:`type` of a :class:`Component` subclass"""
+        :type component_type: The :class:`type` of a :class:`Component` subclass
+        :return: Result
+        :rtype: :class:`bool`"""
         return self.get_component(entity, component_type, None) is not None
+
+    @property
+    def entities(self):
+        """
+
+        :return: Iterable of all created entities
+        :rtype: :class:`Iterator`"""
+        return iter(self._entities)
+
+    def update(self):
+        for system in self.systems:
+            system.update()
 
 class Component(object):
     pass
@@ -92,6 +119,11 @@ class System(object):
     pass
 
 class Entity(object):
+    """
+    Entities are equal only if they are bound to the same world and 
+    have the same uid.
+    """
+
     def __init__(self, uid, world):
         self.world = world
         self.uid = uid
@@ -100,7 +132,7 @@ class Entity(object):
         """Add a component to this entity
 
         Short-hand for :func:`essence.World.add_component`.
-        
+
         :param component: Component to add
         :type component: :class:`Component`"""
         self.world.add_component(self, *args, **kargs)
@@ -109,7 +141,7 @@ class Entity(object):
         """
 
         Short-hand for :func:`essence.World.get_component`.
-        
+
         :param component_type: Type of component
         :type component_type: The :class:`type` of a :class:`Component` subclass"""
         return self.world.get_component(self, *args, **kargs)
@@ -118,7 +150,7 @@ class Entity(object):
         """
 
         Short-hand for :func:`essence.World.remove_component`.
-        
+
         :param component_type: Type of component
         :type component_type: The :class:`type` of a :class:`Component` subclass"""
         self.world.remove_component(self, *args, **kargs)
@@ -127,11 +159,24 @@ class Entity(object):
         """
 
         Short-hand for :func:`essence.World.has_component`.
-        
+
         :param component_type: Type of component
         :type component_type: The :class:`type` of a :class:`Component` subclass"""
         return self.world.has_component(self, *args, **kargs)
 
+    def destroy(self, *args, **kargs):
+        """Remove this entity and all connected components from the world.
+
+        Short-hand for :func:`essence.World.destroy_entity`.
+        """
+        return self.world.destroy_entitiy(self, *args, **kargs)
+
+
+    def __eq__(self, other):
+        return self.world is other.world and self.uid == other.uid
+
+    def __repr__(self):
+        return '<Entity({self.world}, {self.uid}>'.format(self=self)
 
 class DuplicateComponentError(Exception):
     pass
