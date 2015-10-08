@@ -118,16 +118,16 @@ class Component(object):
     in your game or system should be recorded on a Component. Examples of
     common components include Position, Sprite (or Model), Health, etc.
 
-    In essence an implementation of a Position component might look like
-    this:
+    In :mod:`essence` an implementation of a Position component might look
+    like this::
 
         class Position(object):
             def __init__(self, x, y):
                 self.x = x
                 self.y = y
 
-    Note that the Position component does not inherit from Component; in
-    general there is no requirement to have your components inherit from
+    Note that the Position component does not inherit from :class:`Component`;
+    in general there is no requirement to have your components inherit from
     this class (or any class) but you may find it useful for organising your
     code.
     """
