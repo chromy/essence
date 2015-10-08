@@ -203,6 +203,9 @@ class Entity(object):
     def __eq__(self, other):
         return self.world is other.world and self.uid == other.uid
 
+    def __hash__(self):
+        return hash((self.world, self.uid))
+
     def __repr__(self):
         return '<Entity({self.world}, {self.uid}>'.format(self=self)
 
