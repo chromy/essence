@@ -2,16 +2,22 @@
 essence
 =======
 
+.. image:: https://readthedocs.org/projects/essence/badge/?version=latest
+    :target: http://essence.readthedocs.org/en/latest/?badge=latest
+    :alt: Documentation Status
 .. image:: https://travis-ci.org/chromy/essence.svg
     :target: https://travis-ci.org/chromy/essence
 
-Essence is an entity component system framework for Python.
+Essence is an 'entity, component, system' framework for Python.
 
-An example::
 
-    >>> import ecs
-    >>> world = ecs.World()
-    >>> alice = ecs.new_entity()
+An example
+
+.. code-block:: python
+
+    >>> import essence
+    >>> world = essence.World()
+    >>> alice = essence.new_entity()
     >>> position = PositionComponent(3, 4)
     >>> alice.add(position)
     >>> print alice.get(Position)
