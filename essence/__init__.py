@@ -113,14 +113,42 @@ class World(object):
             system.update()
 
 class Component(object):
+    """Components are normally raw data, what might be called a struct or
+    a POD-type in other languages. Any state an entity might need 
+    in your game or system should be recorded on a Component. Examples of
+    common components include Position, Sprite (or Model), Health, etc.
+
+    In essence an implementation of a Position component might look like
+    this:
+
+        class Position(object):
+            def __init__(self, x, y):
+                self.x = x
+                self.y = y
+
+    Note that the Position component does not inherit from Component; in
+    general there is no requirement to have your components inherit from
+    this class (or any class) but you may find it useful for organising your
+    code.
+    """
     pass
 
 class System(object):
-    pass
+    def update(world, *args, **kargs):
+        pass
 
 class Entity(object):
-    """
-    Entities are equal only if they are bound to the same world and 
+    """Entities are unique ids which tie together groups of components.
+    
+    This class provides a convenient handle for adding, removing and accessing
+    components (although in practice the components are actually stored on the
+    world instance to allow for efficient iteration over groups of components).
+    
+    You should not normally need to create an Entity by hand, instead you should
+    use :func:`essence.World.create_entity`. This ensures the entity gets a
+    unique id and is added to the world.
+
+    Entity objects compare equal only if they are bound to the same world and 
     have the same uid.
     """
 
