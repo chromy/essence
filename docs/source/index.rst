@@ -6,7 +6,7 @@
 Welcome to essence's documentation!
 ===================================
 
-:mod:`essence` is an Entity-Component-System for Python.
+:mod:`essence` is an Entity-Component-System framework for Python.
 
 
 What is an Entity-Component-System?
