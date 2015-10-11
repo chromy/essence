@@ -102,7 +102,7 @@ class World(object):
 
     @property
     def entities(self):
-        """
+        """An iterator over all existing entities associated with this world.
 
         :return: Iterable of all created entities
         :rtype: :class:`Iterator`"""
