@@ -1,3 +1,6 @@
+from functools import total_ordering
+from sortedcontainers import SortedSet
+
 MISSING = object()
 
 class World(object):
@@ -7,7 +10,8 @@ class World(object):
         self._highest_id_seen = 0
         self._database = {}
         self._entities = []
-        self._systems = []
+        self._entities_by_component = {}
+        self.systems = []
 
     def _get_relation(self, component_type):
         try:
@@ -15,6 +19,13 @@ class World(object):
         except KeyError:
             self._database[component_type] = {}
             return self._database[component_type]
+
+    def _entities_with(self, component_type):
+        try:
+            return self._entities_by_component[component_type]
+        except KeyError:
+            self._entities_by_component[component_type] = SortedSet()
+            return self._entities_by_component[component_type]
 
     def create_entity(self):
         """Create a new entity.
@@ -54,6 +65,7 @@ class World(object):
             msg = "Component {0} can't be added to entity {1} since it already has a component of type {2}.".format(component, entity, component_type)
             raise DuplicateComponentError(msg)
         relation[entity] = component
+        self._entities_with(component_type).add(entity)
 
     def get_component(self, entity, component_type, missing=MISSING):
         """Get the component of type component_type associated with entity.
@@ -86,6 +98,7 @@ class World(object):
         :type component_type: The :class:`type` of a :class:`Component` subclass"""
         relation = self._get_relation(component_type)
         del relation[entity]
+        self._entities_with(component_type).remove(entity)
 
     def has_component(self, entity, component_type):
         """Returns True iff entity has a component of component_type.
@@ -108,9 +121,13 @@ class World(object):
         :rtype: :class:`Iterator`"""
         return iter(self._entities)
 
-    def update(self):
+    def entities_with(self, component_type):
+        return iter(self._entities_with(component_type))
+
+
+    def update(self, *args, **kwargs):
         for system in self.systems:
-            system.update()
+            system.update(self, *args, **kwargs)
 
 class Component(object):
     """Components are normally raw data, what might be called a struct or
@@ -142,6 +159,7 @@ class System(object):
     def update(world, *args, **kargs):
         pass
 
+@total_ordering
 class Entity(object):
     """Entities are unique ids which tie together groups of components.
 
@@ -204,7 +222,6 @@ class Entity(object):
         """
         return self.world.destroy_entitiy(self, *args, **kargs)
 
-
     def __eq__(self, other):
         return self.world is other.world and self.uid == other.uid
 
@@ -213,6 +230,9 @@ class Entity(object):
 
     def __repr__(self):
         return '<Entity({self.world}, {self.uid}>'.format(self=self)
+
+    def __lt__(self, other):
+        return self.uid < other.uid
 
 class DuplicateComponentError(Exception):
     pass
