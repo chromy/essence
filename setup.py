@@ -15,6 +15,7 @@ setup(
     install_requires=['sortedcontainers'],
 
     tests_require = [
+        'total-ordering',
         'pytest',
         'tox',
     ],
