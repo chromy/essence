@@ -1,4 +1,7 @@
-from functools import total_ordering
+try:
+    from functools import total_ordering
+except ImportError:
+    from total_ordering import total_ordering
 from sortedcontainers import SortedSet
 
 MISSING = object()
