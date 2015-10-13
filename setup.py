@@ -12,10 +12,12 @@ setup(
     description='',
     long_description=open('README.rst').read(),
 
-    install_requires=['sortedcontainers'],
+    install_requires=[
+        'sortedcontainers',
+        'total_ordering',
+    ],
 
     tests_require = [
-        'total-ordering',
         'pytest',
         'tox',
     ],
