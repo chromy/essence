@@ -50,6 +50,8 @@ class World(object):
         """
         for relation in self._database.values():
             relation.pop(entity, None)
+        for l in self._entities_by_component.values():
+            l.discard(entity)
         self._entities.remove(entity)
 
     def add_component(self, entity, component):

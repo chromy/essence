@@ -17,6 +17,7 @@ def test_destroyed_entities_are_forgotten(world):
     entity.add(component)
     world.destroy_entitiy(entity)
     assert entity not in world.entities
+    assert entity not in world.entities_with(Component)
     assert entity.get(Component, None) is None
 
 def test_can_get_entities_with_component(world):
