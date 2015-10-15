@@ -127,6 +127,11 @@ class World(object):
         return iter(self._entities)
 
     def entities_with(self, component_type):
+        """Returns an iterator over all existing entities associated with this world
+        which have a component of component_type.
+
+        :return: Iterable of all created entities with component_type components
+        :rtype: :class:`Iterator`"""
         return iter(self._entities_with(component_type))
 
 
