@@ -134,7 +134,7 @@ class World(object):
 
 
     def update(self, *args, **kwargs):
-        """Call update each of the systems self.systems."""
+        """Calls update on each of the systems self.systems."""
         for system in self.systems:
             system.update(self, *args, **kwargs)
 
