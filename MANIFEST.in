@@ -1,0 +1,11 @@
+include *.txt
+include MANIFEST
+include tox.ini
+recursive-include demo *.py
+recursive-include docs *.bat
+recursive-include docs *.html
+recursive-include docs *.py
+recursive-include docs *.rst
+recursive-include docs Makefile
+prune docs/_build
+recursive-include tests *.py
