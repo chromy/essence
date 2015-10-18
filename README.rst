@@ -19,7 +19,6 @@ essence
 
 Essence is an 'entity, component, system' framework for Python.
 
-
 An example
 
 .. code-block:: python
@@ -31,3 +30,11 @@ An example
     >>> alice.add(position)
     >>> print alice.get(Position)
     <PositionComponent(3, 4)>
+
+
+Tests
+-----
+
+You can use :code:`py.test` to run the tests for just the current Python
+environment or :code:`python setup.py test` to run tox as well as various other
+pre-release tests.
