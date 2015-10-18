@@ -7,10 +7,10 @@ essence
     :alt: Documentation Status
 .. image:: https://travis-ci.org/chromy/essence.svg
     :target: https://travis-ci.org/chromy/essence
-.. image:: https://pypip.in/v/essence/badge.png
+.. image:: https://img.shields.io/pypi/v/essence.svg
     :target: https://crate.io/packages/essence/
     :alt: Latest PyPI version
-.. image:: https://pypip.in/d/essence/badge.png
+.. image:: https://img.shields.io/pypi/dm/essence.svg
     :target: https://crate.io/packages/essence/
     :alt: Number of PyPI downloads
 .. image:: https://img.shields.io/pypi/pyversions/essence.svg
