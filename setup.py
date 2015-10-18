@@ -56,6 +56,7 @@ setup(
     tests_require = [
         'pytest',
         'tox',
+        'check-manifest',
     ],
 
     cmdclass = {
