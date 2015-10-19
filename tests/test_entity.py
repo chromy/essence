@@ -36,4 +36,3 @@ def test_equilivent_entities_are_equal():
     assert alice != bob
     assert mars_alice != mars_bob
 
-

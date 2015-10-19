@@ -66,6 +66,14 @@ class Entity(object):
         """
         return self.world.destroy_entitiy(self, *args, **kargs)
 
+    def __getattr__(self, name):
+        try:
+            component_type = self.world.registry[name]
+        except KeyError:
+            raise UnregisteredComponentError()
+        else:
+            return self.get(component_type)
+
     def __eq__(self, other):
         return self.world is other.world and self.uid == other.uid
 
@@ -77,5 +85,8 @@ class Entity(object):
 
     def __lt__(self, other):
         return self.uid < other.uid
+
+class UnregisteredComponentError(KeyError):
+    pass
 
 

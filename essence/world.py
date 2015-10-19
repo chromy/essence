@@ -13,6 +13,7 @@ class World(object):
         self._entities = []
         self._entities_by_component = {}
         self.systems = []
+        self.registry = {}
 
     def _get_relation(self, component_type):
         try:
@@ -138,10 +139,11 @@ class World(object):
         for system in self.systems:
             system.update(self, *args, **kwargs)
 
+    def register(self, name, component_type):
+        self.registry[name] = component_type
+
 class DuplicateComponentError(Exception):
     pass
 
 class NoSuchComponentError(KeyError):
     pass
-
-
