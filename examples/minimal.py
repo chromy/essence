@@ -10,18 +10,19 @@ class PhysicsSystem(essence.System):
         self.gravity = gravity
 
     def update(self, world):
-        for e in world.entites:
+        for e in world.entities_with(Position):
             e.get(Position).y -= self.gravity
 
 class RenderSystem(essence.System):
     def update(self, world):
-        for e in world.entites:
+        for e in world.entities:
             # Render entity...
+            pass
 
 if __name__ == '__main__':
     world = essence.World()
     world.systems.append(PhysicsSystem(2))
-    world.systems.append(RenderSystem(2))
+    world.systems.append(RenderSystem())
 
     player = world.create_entity()
     player.add(Position(10, 10))
