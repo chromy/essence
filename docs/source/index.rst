@@ -8,6 +8,31 @@ Welcome to essence's documentation!
 
 :mod:`essence` is an Entity-Component-System framework for Python.
 
+Example
+-------
+
+.. code:: python
+from essence import World, Component, System
+
+class Position(Component):
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+class Physics(System):
+    def update(self, world):
+        for e in world.entities_with(Position):
+            e.get(Position).y -= 1
+
+ if __name__ == '__main__':
+    world = World()
+    world.systems.append(Physics())
+    player = world.create_entity()
+    player.add(Position(1, 1))
+
+    while True:
+        world.update()
+```
 
 What is an Entity-Component-System?
 -----------------------------------
