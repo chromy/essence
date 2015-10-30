@@ -1,30 +1,48 @@
 import sys
 from setuptools import setup, find_packages
-from setuptools.command.test import test as TestCommand
+
+name='essence'
+version='0.0.1'
+author='Hector Dearman'
+author_email='hector.dearman@gmail.com'
+url='https://github.com/chromy/essence.git'
+license='MIT'
+description=''
+long_description=open('README.rst').read()
+
+install_requires = [
+    'sortedcontainers',
+    'total_ordering',
+]
+
+tests_require = [
+    'pytest',
+    'tox',
+    'check-manifest>=0.25',
+]
+
+extra_requires = {
+    'test': tests_require,
+}
+
 
 setup(
-    name='essence',
-    version='0.0.1',
-    author='Hector Dearman',
-    author_email='hector.dearman@gmail.com',
+    name=name,
+    version=version,
+    author=author,
+    author_email=author_email,
+    url=url,
+    license=license,
+    description=description,
+    long_description=long_description,
+
     packages=find_packages('src'),
     package_dir={'':'src'},
     scripts=[],
-    url='https://github.com/chromy/essence.git',
-    license='MIT',
-    description='',
-    long_description=open('README.rst').read(),
 
-    install_requires=[
-        'sortedcontainers',
-        'total_ordering',
-    ],
-
-    tests_require = [
-        'pytest',
-        'tox',
-        'check-manifest>=0.25',
-    ],
+    install_requires=install_requires,
+    tests_require=tests_require,
+    extra_requires=extra_requires,
 
     classifiers=[
         # Status

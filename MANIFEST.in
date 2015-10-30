@@ -1,7 +1,8 @@
 include *.txt
 include MANIFEST
 include tox.ini
-recursive-include demo *.py
+include *.md
+recursive-include examples *.py
 recursive-include docs *.bat
 recursive-include docs *.html
 recursive-include docs *.py
