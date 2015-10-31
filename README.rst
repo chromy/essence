@@ -36,5 +36,4 @@ Tests
 -----
 
 You can use :code:`py.test` to run the tests for just the current Python
-environment or :code:`python setup.py test` to run tox as well as various other
-pre-release tests.
+environment or :code:`tox` to perform more comprehensive testing.
