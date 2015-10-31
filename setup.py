@@ -2,7 +2,7 @@ import sys
 from setuptools import setup, find_packages
 
 name='essence'
-version='0.0.1'
+version='0.0.2'
 author='Hector Dearman'
 author_email='hector.dearman@gmail.com'
 url='https://github.com/chromy/essence.git'
